@@ -5,8 +5,8 @@ module "vpc" {
   vpc_cidr_block = "192.168.0.0/16"
   public_subnet_cidr_blocks = [
     "192.168.100.0/24",
-    "192.168.200.0/24",
-    "192.168.0.0/24"
+    "192.168.101.0/24",
+    "192.168.102.0/24"
   ]
   elb_info = {
     "elb_enabled_access_logs" = "false"
@@ -21,7 +21,7 @@ module "vpc" {
 }
 
 module "lg_asg" {
-  source = "../modules/launch_configuration"
+  source = "../modules/launch_scalling_configuration"
 
   count = length(module.vpc.public_subnet_ids) > 0 ? 1 : 0
   env = module.vpc.env
@@ -30,7 +30,6 @@ module "lg_asg" {
   vpc_id = module.vpc.vpc_id
   elb = module.vpc.myELB_name
   common_tags = module.vpc.common_tags
-
   depends_on = [module.vpc]
 }
 
