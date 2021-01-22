@@ -1,3 +1,6 @@
+variable "region" {
+  default = "eu-central-1"
+}
 variable "env" {
   default = "dev"
 }
@@ -37,7 +40,7 @@ variable "backend_port" {
 }
 variable "elb_info" {
   default = {
-    "elb_port" = "80"
+    "elb_port" = ["80"]
     "elb_protocol" = "http"
     "elb_ingress_cidr" = ["0.0.0.0/0"]
     "elb_enabled_access_logs" = "true"

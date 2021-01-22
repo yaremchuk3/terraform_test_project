@@ -6,6 +6,3 @@ data "aws_ami" "amazon2_linux" {
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
-data "aws_availability_zones" "myzone"{
-  state = "available"
-}

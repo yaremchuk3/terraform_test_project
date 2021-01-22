@@ -3,12 +3,17 @@ resource "aws_elb" "myELB" {
   name = "${var.env}-Elb"
   security_groups = [aws_security_group.myDynamicSG.id]
   subnets = aws_subnet.publicSubnets[*].id
-  listener {
-    instance_port = var.backend_port.port
-    instance_protocol = var.backend_port.protocol
-    lb_port = var.elb_info.elb_port
-    lb_protocol = var.elb_info.elb_protocol
+
+  dynamic "listener" {
+    for_each = var.elb_info.elb_port
+    content {
+      instance_port = var.backend_port.port
+      instance_protocol = var.backend_port.protocol
+      lb_port = listener.value
+      lb_protocol = var.elb_info.elb_protocol
+    }
   }
+
   access_logs {
     enabled = var.elb_info.elb_enabled_access_logs
     bucket = aws_s3_bucket.myS3bucket.id
