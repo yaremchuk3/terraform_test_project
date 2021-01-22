@@ -19,25 +19,30 @@ variable "sg_open_protocol" {
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"
 }
+
 variable "vpc_additional_cidr_block" {
   default = [
   ]
 }
+
 variable "public_subnet_cidr_blocks" {
   default = [
     "10.0.0.0/24",
   ]
 }
+
 variable "private_subnet_cidr_blocks" {
   default = [
   ]
 }
+
 variable "backend_port" {
   default = {
     "port" = "80"
     "protocol" = "http"
   }
 }
+
 variable "elb_info" {
   default = {
     "elb_port" = ["80"]
@@ -46,11 +51,13 @@ variable "elb_info" {
     "elb_enabled_access_logs" = "true"
   }
 }
+
 variable "s3bucket_for_elb" {
   default = {
     "bucket_name" = "elbaccesslogs"
   }
 }
+
 variable "elb_health_check" {
   default = {
     "healthy_threshold" = "2"

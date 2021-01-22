@@ -1,5 +1,4 @@
 resource "aws_s3_bucket" "myS3bucket" {
-//  count = length(aws_elb.myELB.id) > 0 ? 1 : 0
   bucket = local.bucket_name
   acl = "private"
   force_destroy = true

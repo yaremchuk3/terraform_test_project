@@ -8,6 +8,7 @@ resource "aws_autoscaling_group" "asg" {
   load_balancers = var.elb
   vpc_zone_identifier = var.subnet_ids
   depends_on = [aws_launch_configuration.launch_conf]
+
   dynamic "tag" {
     for_each = var.common_tags
     content {
@@ -16,11 +17,13 @@ resource "aws_autoscaling_group" "asg" {
       propagate_at_launch = true
     }
   }
+
   tag {
     key = "Env"
     propagate_at_launch = true
     value = var.env
   }
+
   tag {
     key = "Name"
     propagate_at_launch = true

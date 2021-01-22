@@ -12,12 +12,14 @@ resource "aws_vpc_ipv4_cidr_block_association" "myVpcSecond_cidr" {
 resource "aws_security_group" "myDynamicSG" {
   name_prefix = "${var.env}-SGDynamic-"
   vpc_id = aws_vpc.myVpc.id
+
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   dynamic "ingress" {
     for_each = var.sg_open_ports
     content {
@@ -27,5 +29,6 @@ resource "aws_security_group" "myDynamicSG" {
       cidr_blocks = var.elb_info.elb_ingress_cidr
     }
   }
+
   tags = merge(var.common_tags, {Name = "myDynamicSG-${var.env}", Env = var.env})
 }
