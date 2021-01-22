@@ -11,7 +11,7 @@ module "vpc" {
   elb_info = {
     "elb_enabled_access_logs" = "false"
     "elb_ingress_cidr" = ["0.0.0.0/0"]
-    "elb_port" = "80"
+    "elb_port" = ["80"]
     "elb_protocol" = "http"
   }
   common_tags = {
