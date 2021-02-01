@@ -1,9 +1,9 @@
 resource "aws_autoscaling_group" "asg" {
   count = length(var.subnet_ids) > 0 ? 1 : 0
   name = "ASG"
-  max_size = 4
-  min_size = 3
-  desired_capacity = 2
+  max_size = 2
+  min_size = 1
+  desired_capacity = 1
   launch_configuration = aws_launch_configuration.launch_conf.id
   load_balancers = var.elb
   vpc_zone_identifier = var.subnet_ids

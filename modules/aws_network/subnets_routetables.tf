@@ -12,7 +12,6 @@ resource "aws_subnet" "privateSubnets" {
   count = length(var.private_subnet_cidr_blocks)
   availability_zone = element(local.zones, count.index)
   cidr_block = element(var.private_subnet_cidr_blocks, count.index)
-  depends_on = [aws_vpc_ipv4_cidr_block_association.myVpcSecond_cidr]
   tags = merge(var.common_tags, {Name = "Private-Subnet-${count.index +1}-${var.env}", Env = var.env})
 }
 
