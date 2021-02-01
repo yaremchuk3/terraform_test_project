@@ -3,7 +3,7 @@ resource "aws_autoscaling_group" "asg" {
   name = "ASG"
   max_size = length(var.subnet_ids) + 2
   min_size = length(var.subnet_ids)
-  desired_capacity = 1
+  desired_capacity = length(var.subnet_ids)
   launch_configuration = aws_launch_configuration.launch_conf.id
   load_balancers = var.elb
   vpc_zone_identifier = var.subnet_ids
