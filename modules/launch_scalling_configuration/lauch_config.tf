@@ -1,4 +1,5 @@
 resource "aws_launch_configuration" "launch_conf" {
+  count = length(var.subnet_ids) > 0 ? 1 : 0
   name = var.lc_name
   image_id = data.aws_ami.amazon2_linux.id
   instance_type = var.instance_type[var.env]
@@ -18,4 +19,16 @@ echo "<br><font color="blue">Hello World!!" >> /var/www/html/index.html
 sudo service httpd start
 chkconfig httpd on
 EOF
+}
+
+resource "aws_launch_configuration" "launch_conf_for_private" {
+  count = length(var.subnet_private_ids) > 0 ? 1 : 0
+  name = var.lc_name_private
+  image_id = data.aws_ami.amazon2_linux.id
+  instance_type = var.instance_type[var.env]
+  security_groups = [var.sg]
+
+  lifecycle {
+    ignore_changes = [image_id]
+  }
 }

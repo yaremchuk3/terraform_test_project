@@ -18,8 +18,13 @@ variable "lc_name" {
   default = "launch_config"
 }
 
+variable "lc_name_private" {
+  default = "launch_config_private"
+}
+
 variable "sg" {}
 variable "subnet_ids" {}
+variable "subnet_private_ids" {}
 variable "vpc_id" {}
 variable "common_tags" {
   default = {

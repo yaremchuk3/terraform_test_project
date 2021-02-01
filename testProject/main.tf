@@ -2,12 +2,13 @@ module "vpc" {
   source = "../modules/aws_network"
 
   env = "dev"
-  vpc_cidr_block = "192.168.0.0/16"
+  vpc_cidr_block = "10.0.0.0/16"
   public_subnet_cidr_blocks = [
-    "192.168.100.0/24",
-    "192.168.101.0/24",
-    "192.168.102.0/24"
+    "10.0.0.0/24",
+    "10.0.1.0/24",
+    "10.0.2.0/24"
   ]
+  private_subnet_cidr_blocks = []
   elb_info = {
     "elb_enabled_access_logs" = "false"
     "elb_ingress_cidr" = ["0.0.0.0/0"]
@@ -27,6 +28,7 @@ module "lg_asg" {
   env = module.vpc.env
   sg = module.vpc.sg_id
   subnet_ids = module.vpc.public_subnet_ids
+  subnet_private_ids = module.vpc.private_subnet_ids
   vpc_id = module.vpc.vpc_id
   elb = module.vpc.myELB_name
   common_tags = module.vpc.common_tags
