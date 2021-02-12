@@ -10,7 +10,7 @@ module "vpc" {
   ]
   private_subnet_cidr_blocks = []
   elb_info = {
-    "elb_enabled_access_logs" = "false"
+    "elb_enabled_access_logs" = "true"
     "elb_ingress_cidr" = ["0.0.0.0/0"]
     "elb_port" = ["80"]
     "elb_protocol" = "http"
