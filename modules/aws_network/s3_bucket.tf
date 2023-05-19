@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "myS3bucket" {
   bucket = local.bucket_name
-  acl = "private"
   force_destroy = true
   tags = merge(var.common_tags, {Name = "myS3Bucket-${var.env}", Env = var.env})
 }
@@ -28,4 +27,9 @@ resource "aws_s3_bucket_policy" "elb_access_to_s3_bucket" {
   ]
 }
 POLICY
+}
+
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.myS3bucket.id
+  acl    = "private"
 }
