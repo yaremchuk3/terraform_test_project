@@ -4,6 +4,11 @@ resource "aws_s3_bucket" "myS3bucket" {
   tags = merge(var.common_tags, {Name = "myS3Bucket-${var.env}", Env = var.env})
 }
 
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.myS3bucket.id
+  acl    = "private"
+}
+
 resource "aws_s3_bucket_policy" "elb_access_to_s3_bucket" {
   count = length(aws_s3_bucket.myS3bucket[*].id) > 0 ? 1 : 0
   bucket = aws_s3_bucket.myS3bucket.id
@@ -27,9 +32,4 @@ resource "aws_s3_bucket_policy" "elb_access_to_s3_bucket" {
   ]
 }
 POLICY
-}
-
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.myS3bucket.id
-  acl    = "private"
 }
